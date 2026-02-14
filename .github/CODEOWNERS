@@ -1,0 +1,5 @@
+# Default owner for all files
+* @yoichi-aoyama
+
+# Keep workflow changes under explicit owner review
+.github/workflows/* @yoichi-aoyama
