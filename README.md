@@ -80,12 +80,13 @@
   - `aggregatedEntries`
 
 ## ローカル保存先
-- DB: `/Users/ao/work/webapp1/dev.db`
-- 画像: `/Users/ao/work/webapp1/public/uploads/`
+- DB: `/Users/ao/work/kirokuflow/dev.db`
+- 画像: `/Users/ao/work/kirokuflow/public/uploads/`
 
 ## セットアップ
 
 ```bash
+cp .env.example .env
 pnpm install
 pnpm prisma migrate dev
 pnpm dev
