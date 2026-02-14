@@ -1,0 +1,52 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int           @id @default(autoincrement())
+  name      String
+  createdAt DateTime      @default(now())
+  entries   Entry[]
+  reports   DailyReport[]
+}
+
+model Entry {
+  id          Int          @id @default(autoincrement())
+  userId      Int
+  createdAt   DateTime     @default(now())
+  text        String
+  workMinutes Int          @default(0)
+  attachments Attachment[]
+  user        User         @relation(fields: [userId], references: [id])
+}
+
+model Attachment {
+  id        Int      @id @default(autoincrement())
+  entryId   Int
+  url       String
+  mimeType  String
+  size      Int
+  createdAt DateTime @default(now())
+  entry     Entry    @relation(fields: [entryId], references: [id])
+}
+
+model DailyReport {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  date      DateTime
+  summary   String
+  totalWorkMinutes Int   @default(0)
+  aggregatedEntries String @default("")
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@unique([userId, date])
+}
